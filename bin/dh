@@ -1,0 +1,72 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require 'data_helpers'
+require 'optparse'
+
+options = {
+  delimiter: :comma,
+  lines: 1,
+  headers: :prepend,
+  verbose: false
+}
+
+OptionParser.new do |opts|
+  opts.banner = 'Usage: bundle exec ./bin/data_helpers [options]'
+
+  opts.on('-d [<comma> | <pipe> | <space>]', '--delimiter [<comma> | <pipe> | <space>]', 'Delimiter (default: comma)', 'Set delimiter for used for output rows and header.') do |v|
+    unless %w(comma pipe space).include?(v)
+      STDERR.puts("Invalid delimiter: #{v}")
+      STDERR.puts(opts.help)
+
+      exit
+    end
+
+    options[:delimiter] = v.to_sym
+  end
+
+  opts.on('-l [NUMBER]', '--lines [NUMBER]', Integer, "Lines (default: #{options[:lines]})", 'Print 0 or more of lines of output.', 'Ignored if (--only-headers) is present.') do |v|
+    begin
+      lines = Integer(v || options[:lines])
+      raise ArgumentError if lines.negative?
+      options[:lines] = lines
+    rescue ArgumentError, TypeError
+      STDERR.puts('Invalid NUMBER')
+      STDERR.puts(opts.help)
+
+      exit
+    end
+  end
+
+  opts.on('--prepend-headers', 'Print delimited headers before writing lines.', 'This is the default behavior.') do
+    options[:headers] = :prepend
+  end
+
+  opts.on('--only-headers', 'Print delimited headers then exits without further output.', 'Ignores (--lines) option.', 'Ignored if (--no-headers) is present.') do
+    options[:headers] = :only
+  end
+
+  opts.on('--no-headers', 'Do not print delimited headers at beginning of output.', 'Supersedes (--only-headers) if present.') do
+    options[:headers] = :none
+  end
+
+  opts.on('--version', 'Print version info') do
+    STDOUT.puts(DataHelpers::VERSION)
+    exit
+  end
+
+  opts.on('-v', '--verbose', 'Verbose mode', 'Prints extra runtime information to STDERR') do |_v|
+    options[:verbose] = true
+  end
+  opts.on_tail('-h', '--help', 'Show this message') do
+    STDOUT.puts(opts)
+    exit
+  end
+end.parse!
+
+if options[:verbose]
+  STDERR.puts('VERBOSE ENABLED')
+  STDERR.puts("OPTIONS: #{options.inspect}")
+end
+
+DataHelpers::DelimitedFileWriter.new(options).call
