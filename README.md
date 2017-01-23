@@ -30,14 +30,14 @@ Inside the cloned repo.
 
 Examples:
 
-- Print comma-delimited headers and one comma-delimited fields to STDOUT.
+- Print comma-delimited headers and one comma-delimited fields to `STDOUT`.
 
 ```shell
 bundle exec ./bin/dh
 
 ```
 
-- Print pipe-delimited header and 100 pipe-delimited fields to STDOUT.
+- Print pipe-delimited header and 100 pipe-delimited fields to `STDOUT`.
 
 ```shell
 bundle exec ./bin/dh --lines 100 --delimiter pipe
@@ -57,8 +57,8 @@ cat example.txt
 
 ## Command Line Options
 
-- Header and field data is written to STDOUT.
-- Logging and error data is written to STDERR.
+- Header and field data is written to `STDOUT`.
+- Logging and error data is written to `STDERR`.
 
 ### --help OR -h
 
@@ -66,7 +66,7 @@ Prints usage information.
 
 ### --verbose
 
-Writes extra runtime information to STDERR.
+Writes extra runtime information to `STDERR`.
 
 ### --delimiter [DELIMITER] OR -d [DELIMITER]
 
@@ -74,21 +74,21 @@ Name of the delimiter to use for output.
 
 Allowed values:
 
-- comma
-- pipe
-- space
+- `comma`
+- `pipe`
+- `space`
 
 If no option provided then comma delimiter is default.
 
-- --delimiter comma OR -d comma
+- `--delimiter comma` OR `-d comma`
 
 Use ", " as delimiter between cells.
 
-- --delimiter pipe OR -d pipe
+- `--delimiter pipe` OR `-d pipe`
 
 Use " | " as delimiter between cells.
 
-- --delimiter space OR -d space
+- `--delimiter space` OR `-d space`
 
 Use single whitespace character as delimiter between cells.
 
