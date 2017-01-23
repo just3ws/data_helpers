@@ -4,19 +4,7 @@ Ruby command line utility to generate sample data for coding exercises
 
 ## Installation
 
-Add this line to your application's Gemfile:
-
-```ruby
-gem 'data_helpers'
-```
-
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
-
-    $ gem install data_helpers
+Clone the repo, `bundle install`, then run `bundle exec ./bin/dh` from the command line.
 
 ## Development
 
