@@ -5,7 +5,7 @@ Ruby command line utility to generate sample data for coding exercises
 ## Installation
 
 - Clone the repo
-- `bundle install`
+- `./bin/setup`
 - Run `bundle exec ./bin/dh`
 
 ## Development
